@@ -22,6 +22,7 @@ use Novalnet\Helper\PaymentHelper;
 use Novalnet\Services\PaymentService;
 use Plenty\Modules\Basket\Models\Basket;
 use Plenty\Modules\Basket\Contracts\BasketRepositoryContract;
+use Plenty\Plugin\Log\Loggable;
 
 /**
  * Class NovalnetPostfinanceEfinancePaymentMethod
@@ -30,6 +31,7 @@ use Plenty\Modules\Basket\Contracts\BasketRepositoryContract;
  */
 class NovalnetPostfinanceEfinancePaymentMethod extends PaymentMethodService
 {
+    use Loggable;
     /**
      * @var ConfigRepository
      */
@@ -76,6 +78,7 @@ class NovalnetPostfinanceEfinancePaymentMethod extends PaymentMethodService
      */
     public function isActive():bool
     {
+        $this->getLogger(__METHOD__)->error('efinance', $this->configRepository->get('Novalnet.postfinance_efinance_payment_active'));
        if ($this->configRepository->get('Novalnet.postfinance_efinance_payment_active') == 'true') {
         
         $active_payment_allowed_country = true;

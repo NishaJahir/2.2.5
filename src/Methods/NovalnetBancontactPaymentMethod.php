@@ -22,6 +22,7 @@ use Novalnet\Helper\PaymentHelper;
 use Novalnet\Services\PaymentService;
 use Plenty\Modules\Basket\Models\Basket;
 use Plenty\Modules\Basket\Contracts\BasketRepositoryContract;
+use Plenty\Plugin\Log\Loggable;
 
 /**
  * Class NovalnetBancontactPaymentMethod
@@ -30,6 +31,7 @@ use Plenty\Modules\Basket\Contracts\BasketRepositoryContract;
  */
 class NovalnetBancontactPaymentMethod extends PaymentMethodService
 {
+    use Loggable;
     /**
      * @var ConfigRepository
      */
@@ -76,6 +78,8 @@ class NovalnetBancontactPaymentMethod extends PaymentMethodService
      */
     public function isActive():bool
     {
+       $this->getLogger(__METHOD__)->error('Bancontact', $this->configRepository->get('Novalnet.novalnet_bancontact_payment_active'));
+        
        if ($this->configRepository->get('Novalnet.novalnet_bancontact_payment_active') == 'true') {
         
         $active_payment_allowed_country = true;

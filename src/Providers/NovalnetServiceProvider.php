@@ -53,6 +53,10 @@ use Novalnet\Methods\NovalnetIdealPaymentMethod;
 use Novalnet\Methods\NovalnetEpsPaymentMethod;
 use Novalnet\Methods\NovalnetGiropayPaymentMethod;
 use Novalnet\Methods\NovalnetPrzelewyPaymentMethod;
+use Novalnet\Methods\NovalnetPostfinanceCardPaymentMethod;
+use Novalnet\Methods\NovalnetPostfinanceEfinancePaymentMethod;
+use Novalnet\Methods\NovalnetBancontactPaymentMethod;
+use Novalnet\Methods\NovalnetMultibancoPaymentMethod;
 
 use Plenty\Modules\EventProcedures\Services\Entries\ProcedureEntry;
 use Plenty\Modules\EventProcedures\Services\EventProceduresService;

@@ -610,12 +610,16 @@ class PaymentService
             'NOVALNET_CC'=>NovalnetConstants::PAYPORT_URL,
             'NOVALNET_SEPA'=>NovalnetConstants::PAYPORT_URL,
             'NOVALNET_CASHPAYMENT'=>NovalnetConstants::PAYPORT_URL,
+            'NOVALNET_MULTIBANCO'=>NovalnetConstants::PAYPORT_URL,
             'NOVALNET_PAYPAL'=>NovalnetConstants::PAYPAL_PAYMENT_URL,
             'NOVALNET_IDEAL'=>NovalnetConstants::SOFORT_PAYMENT_URL,
             'NOVALNET_EPS'=>NovalnetConstants::GIROPAY_PAYMENT_URL,
             'NOVALNET_GIROPAY'=>NovalnetConstants::GIROPAY_PAYMENT_URL,
             'NOVALNET_PRZELEWY'=>NovalnetConstants::PRZELEWY_PAYMENT_URL,
-            'NOVALNET_SOFORT'=>NovalnetConstants::SOFORT_PAYMENT_URL
+            'NOVALNET_SOFORT'=>NovalnetConstants::SOFORT_PAYMENT_URL,
+            'NOVALNET_POSTFINANCE_CARD'=>NovalnetConstants::POSTFINANCE_PAYMENT_URL,
+            'NOVALNET_POSTFINANCE_EFINANCE'=>NovalnetConstants::POSTFINANCE_PAYMENT_URL,
+            'NOVALNET_BANCONTACT'=>NovalnetConstants::BANCONTACT_PAYMENT_URL, 
         ];
 
         return $payment[$paymentKey];
@@ -652,12 +656,16 @@ class PaymentService
             'NOVALNET_CC'=>'6',
             'NOVALNET_SEPA'=>'37',
             'NOVALNET_CASHPAYMENT'=>'59',
+            'NOVALNET_MULTIBANCO'=>'73',
             'NOVALNET_PAYPAL'=>'34',
             'NOVALNET_IDEAL'=>'49',
             'NOVALNET_EPS'=>'50',
             'NOVALNET_GIROPAY'=>'69',
             'NOVALNET_PRZELEWY'=>'78',
-            'NOVALNET_SOFORT'=>'33'
+            'NOVALNET_SOFORT'=>'33',
+            'NOVALNET_POSTFINANCE_CARD'=>'87',
+            'NOVALNET_POSTFINANCE_EFINANCE'=>'88',
+            'NOVALNET_BANCONTACT'=>'44'
         ];
 
         return $payment[$paymentKey];
@@ -677,12 +685,16 @@ class PaymentService
             'NOVALNET_CC'=>'CREDITCARD',
             'NOVALNET_SEPA'=>'DIRECT_DEBIT_SEPA',
             'NOVALNET_CASHPAYMENT'=>'CASHPAYMENT',
+            'NOVALNET_MULTIBANCO'=>'MULTIBANCO',
             'NOVALNET_PAYPAL'=>'PAYPAL',
             'NOVALNET_IDEAL'=>'IDEAL',
             'NOVALNET_EPS'=>'EPS',
             'NOVALNET_GIROPAY'=>'GIROPAY',
             'NOVALNET_PRZELEWY'=>'PRZELEWY24',
-            'NOVALNET_SOFORT'=>'ONLINE_TRANSFER'
+            'NOVALNET_SOFORT'=>'ONLINE_TRANSFER',
+            'NOVALNET_POSTFINANCE_CARD'=>'POSTFINANCE_CARD',
+            'NOVALNET_POSTFINANCE_EFINANCE'=>'POSTFINANCE',
+            'NOVALNET_BANCONTACT'=>'BANCONTACT'
         ];
 
         return $payment[$paymentKey];

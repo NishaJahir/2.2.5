@@ -974,8 +974,8 @@
             }
          }
       },
-      "Config.NovalnetPostFinanceE-FinanceTab":{  
-         "label":"Config.NovalnetPostFinanceE-FinanceTab",
+      "Config.NovalnetPostFinanceEfinanceTab":{  
+         "label":"Config.NovalnetPostFinanceEfinanceTab",
          "formFields":{  
             "novalnet_postfinance_efinance_payment_active":{  
                "type":"checkBox",

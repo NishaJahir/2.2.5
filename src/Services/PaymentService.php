@@ -617,6 +617,7 @@ class PaymentService
             'NOVALNET_GIROPAY'=>NovalnetConstants::GIROPAY_PAYMENT_URL,
             'NOVALNET_PRZELEWY'=>NovalnetConstants::PRZELEWY_PAYMENT_URL,
             'NOVALNET_SOFORT'=>NovalnetConstants::SOFORT_PAYMENT_URL,
+            'NOVALNET_APPLEPAY'=>NovalnetConstants::PAYGATE_URI,
             'NOVALNET_POSTFINANCE_CARD'=>NovalnetConstants::POSTFINANCE_PAYMENT_URL,
             'NOVALNET_POSTFINANCE_EFINANCE'=>NovalnetConstants::POSTFINANCE_PAYMENT_URL,
             'NOVALNET_BANCONTACT'=>NovalnetConstants::BANCONTACT_PAYMENT_URL, 
@@ -663,6 +664,7 @@ class PaymentService
             'NOVALNET_GIROPAY'=>'69',
             'NOVALNET_PRZELEWY'=>'78',
             'NOVALNET_SOFORT'=>'33',
+            'NOVALNET_APPLEPAY'=>'102',
             'NOVALNET_POSTFINANCE_CARD'=>'87',
             'NOVALNET_POSTFINANCE_EFINANCE'=>'88',
             'NOVALNET_BANCONTACT'=>'44'
@@ -692,6 +694,7 @@ class PaymentService
             'NOVALNET_GIROPAY'=>'GIROPAY',
             'NOVALNET_PRZELEWY'=>'PRZELEWY24',
             'NOVALNET_SOFORT'=>'ONLINE_TRANSFER',
+            'NOVALNET_APPLEPAY'=>'APPLEPAY',
             'NOVALNET_POSTFINANCE_CARD'=>'POSTFINANCE_CARD',
             'NOVALNET_POSTFINANCE_EFINANCE'=>'POSTFINANCE',
             'NOVALNET_BANCONTACT'=>'BANCONTACT'

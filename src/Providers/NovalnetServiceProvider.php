@@ -53,6 +53,7 @@ use Novalnet\Methods\NovalnetIdealPaymentMethod;
 use Novalnet\Methods\NovalnetEpsPaymentMethod;
 use Novalnet\Methods\NovalnetGiropayPaymentMethod;
 use Novalnet\Methods\NovalnetPrzelewyPaymentMethod;
+use Novalnet\Methods\NovalnetApplePayPaymentMethod;
 use Novalnet\Methods\NovalnetPostfinanceCardPaymentMethod;
 use Novalnet\Methods\NovalnetPostfinanceEfinancePaymentMethod;
 use Novalnet\Methods\NovalnetBancontactPaymentMethod;
@@ -170,6 +171,12 @@ class NovalnetServiceProvider extends ServiceProvider
                 AfterBasketCreate::class
             ]);
         $payContainer->register('plenty_novalnet::NOVALNET_PRZELEWY', NovalnetPrzelewyPaymentMethod::class,
+            [
+                AfterBasketChanged::class,
+                AfterBasketItemAdd::class,
+                AfterBasketCreate::class
+            ]);
+        $payContainer->register('plenty_novalnet::NOVALNET_APPLEPAY', NovalnetApplePayPaymentMethod::class,
             [
                 AfterBasketChanged::class,
                 AfterBasketItemAdd::class,

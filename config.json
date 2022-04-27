@@ -919,6 +919,89 @@
             }
          }
       },
+      "Config.NovalnetApplePayTab":{  
+         "label":"Config.NovalnetApplePayTab",
+         "formFields":{  
+            "novalnet_applepay_payment_active":{  
+               "type":"checkBox",
+               "required":false,
+               "label":"Config.paymentActiveLabel",
+               "options":{  
+                  "defaultValue":false
+               }
+            },
+            "novalnet_applepay_test_mode":{  
+               "type":"checkBox",
+               "required":false,
+               "label":"Config.testModeLabel",
+               "options":{  
+                  "defaultValue":false
+               }
+            },
+            "novalnet_applepay_payment_logo":{  
+               "type":"inputFile",
+               "required":false,
+               "label":"Config.paymentLogoLabel",
+               "options":{  
+                  "defaultValue":"images/applepay.png"
+               }
+            },
+            "novalnet_applepay_payment_action": {
+          "type": "multiCheckBox",
+          "required": false,
+          "label": "Config.paymentActionLabel",
+          "options": {
+            "defaultValue": "false",
+            "checkBoxValues": [
+              {
+                "value": "false",
+                "caption": "Config.onholdCapture"
+              },
+              {
+                "value": "true",
+                "caption": "Config.onholdAuthorize"
+              }
+              
+            ]
+      }
+    },
+            "novalnet_applepay_on_hold":{  
+               "type":"inputText",
+               "required":false,
+               "label":"Config.onHoldLabel",
+               "options":{  
+                  "tooltip":"Config.paypalOnHoldTooltip",
+                  "defaultValue":""
+               }
+            },
+            "novalnet_applepay_minimum_order_amount":{  
+               "type":"inputText",
+               "required":false,
+               "label":"Config.minimumOrderAmountLabel",
+               "options":{  
+                  "tooltip":"Config.minimumOrderAmountTooltip",
+                  "defaultValue":""
+               }
+            },
+            "novalnet_applepay_maximum_order_amount":{  
+               "type":"inputText",
+               "required":false,
+               "label":"Config.maximumOrderAmountLabel",
+               "options":{ 
+                  "tooltip":"Config.maximumOrderAmountTooltip",
+                  "defaultValue":""
+               }
+            },
+            "novalnet_applepay_allowed_country":{  
+               "type":"inputText",
+               "required":false,
+               "label":"Config.allowedCountryLabel",
+               "options":{  
+                  "defaultValue":""
+               }
+            }
+         }
+      },
       "Config.NovalnetPostFinanceCardTab":{  
          "label":"Config.NovalnetPostFinanceCardTab",
          "formFields":{  

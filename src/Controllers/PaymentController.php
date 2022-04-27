@@ -26,6 +26,7 @@ use Novalnet\Services\PaymentService;
 use Plenty\Plugin\Templates\Twig;
 use Plenty\Plugin\ConfigRepository; 
 use Novalnet\Services\TransactionService;
+use Plenty\Plugin\Log\Loggable;
 
 /**
  * Class PaymentController
@@ -34,6 +35,7 @@ use Novalnet\Services\TransactionService;
  */
 class PaymentController extends Controller
 {
+    use Loggable;
     /**
      * @var Request
      */
@@ -271,6 +273,7 @@ class PaymentController extends Controller
         $paymentUrl = $this->sessionStorage->getPlugin()->getValue('nnPaymentUrl');
         $this->sessionStorage->getPlugin()->setValue('nnPaymentData', null);
         $this->sessionStorage->getPlugin()->setValue('nnOrderNo', null);
+        $this->getLogger(__METHOD__)->error('request', $paymentRequestData);
         $sendPaymentRequest = $this->paymentService->checkPaymentRequestSend($paymentRequestData['order_no']);
         $tid_status = $this->paymentHelper->getNovalnetTxStatus($paymentRequestData['order_no']);
         if(!empty($paymentRequestData['order_no']) && ( ($sendPaymentRequest == true && empty($tid_status)) || (!empty($tid_status) && !in_array($tid_status, [75, 85, 86, 90, 91, 98, 99, 100, 103])) ) ) {

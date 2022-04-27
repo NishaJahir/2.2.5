@@ -24,7 +24,7 @@ use Novalnet\Helper\PaymentHelper;
  *
  * @package Novalnet\Migrations
  */
-class CreateNewPaymentMethods
+class CreateNewPaymentMethods123
 {
     /**
      * @var PaymentMethodRepositoryContract
@@ -67,6 +67,7 @@ class CreateNewPaymentMethods
         $this->createNovalnetPaymentMethodByPaymentKey('NOVALNET_EPS', 'Novalnet eps');
         $this->createNovalnetPaymentMethodByPaymentKey('NOVALNET_GIROPAY', 'Novalnet giropay');
         $this->createNovalnetPaymentMethodByPaymentKey('NOVALNET_PRZELEWY', 'Novalnet Przelewy24');
+        $this->createNovalnetPaymentMethodByPaymentKey('NOVALNET_APPLEPAY', 'Novalnet Applepay');
         $this->createNovalnetPaymentMethodByPaymentKey('NOVALNET_POSTFINANCE_CARD', 'Novalnet PostFinance Card');
         $this->createNovalnetPaymentMethodByPaymentKey('NOVALNET_POSTFINANCE_EFINANCE', 'Novalnet PostFinance E-Finance');
         $this->createNovalnetPaymentMethodByPaymentKey('NOVALNET_BANCONTACT', 'Novalnet Bancontact');

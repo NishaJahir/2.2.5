@@ -317,7 +317,7 @@ class NovalnetServiceProvider extends ServiceProvider
                                                                     ]);
                                 }
                           } else {
-                                if(in_array($paymentKey, ['NOVALNET_INVOICE', 'NOVALNET_PREPAYMENT', 'NOVALNET_CASHPAYMENT']))
+                                if(in_array($paymentKey, ['NOVALNET_INVOICE', 'NOVALNET_PREPAYMENT', 'NOVALNET_CASHPAYMENT', 'NOVALNET_MULTIBANCO']))
                                 {
                                     $processDirect = true;
                                     $B2B_customer   = false;

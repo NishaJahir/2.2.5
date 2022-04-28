@@ -1119,10 +1119,10 @@ class PaymentService
      * Get Seamless payment form customization params
      *
      * @param array $paymentRequestData
-     * @param string $paymentKey
-     * @param bool $doRedirect
+     
+     * @return none
      */
-    public function getSeamlessFormParams($paymentKey, &$paymentRequestData, $doRedirect )
+    public function getSeamlessFormParams(&$paymentRequestData)
     {
         $paymentRequestData['hfooter'] = '0';
         $paymentRequestData['thide'] = '1';

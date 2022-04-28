@@ -85,19 +85,19 @@ class CallbackController extends Controller
      * @var aryPayments
      * @Array Type of payment available - Level : 0
      */
-    protected $aryPayments = ['CREDITCARD', 'INVOICE_START', 'DIRECT_DEBIT_SEPA', 'GUARANTEED_INVOICE', 'GUARANTEED_DIRECT_DEBIT_SEPA', 'PAYPAL', 'ONLINE_TRANSFER', 'IDEAL', 'GIROPAY', 'PRZELEWY24', 'EPS', 'CASHPAYMENT'];
+    protected $aryPayments = ['CREDITCARD', 'INVOICE_START', 'DIRECT_DEBIT_SEPA', 'GUARANTEED_INVOICE', 'GUARANTEED_DIRECT_DEBIT_SEPA', 'PAYPAL', 'ONLINE_TRANSFER', 'IDEAL', 'GIROPAY', 'PRZELEWY24', 'EPS', 'CASHPAYMENT', 'POSTFINANCE', 'POSTFINANCE_CARD', 'APPLEPAY', 'BANCONTACT', 'MULTIBANCO'];
 
     /**
      * @var aryChargebacks
      * @Array Type of Chargebacks available - Level : 1
      */
-    protected $aryChargebacks = ['PRZELEWY24_REFUND', 'RETURN_DEBIT_SEPA', 'REVERSAL', 'CREDITCARD_BOOKBACK', 'CREDITCARD_CHARGEBACK', 'PAYPAL_BOOKBACK', 'REFUND_BY_BANK_TRANSFER_EU', 'CASHPAYMENT_REFUND', 'GUARANTEED_INVOICE_BOOKBACK', 'GUARANTEED_SEPA_BOOKBACK'];
+    protected $aryChargebacks = ['PRZELEWY24_REFUND', 'RETURN_DEBIT_SEPA', 'REVERSAL', 'CREDITCARD_BOOKBACK', 'CREDITCARD_CHARGEBACK', 'PAYPAL_BOOKBACK', 'REFUND_BY_BANK_TRANSFER_EU', 'CASHPAYMENT_REFUND', 'GUARANTEED_INVOICE_BOOKBACK', 'GUARANTEED_SEPA_BOOKBACK', 'POSTFINANCE_REFUND', 'APPLEPAY_BOOKBACK', 'APPLEPAY_CHARGEBACK', 'MULTIBANCO_REFUND'];
 
     /**
      * @var aryCollection
      * @Array Type of CreditEntry payment and Collections available - Level : 2
      */
-    protected $aryCollection = ['INVOICE_CREDIT', 'CREDIT_ENTRY_CREDITCARD', 'CREDIT_ENTRY_SEPA', 'CREDIT_ENTRY_DE', 'DEBT_COLLECTION_SEPA', 'DEBT_COLLECTION_CREDITCARD', 'CASHPAYMENT_CREDIT', 'DEBT_COLLECTION_DE', 'ONLINE_TRANSFER_CREDIT'];
+    protected $aryCollection = ['INVOICE_CREDIT', 'CREDIT_ENTRY_CREDITCARD', 'CREDIT_ENTRY_SEPA', 'CREDIT_ENTRY_DE', 'DEBT_COLLECTION_SEPA', 'DEBT_COLLECTION_CREDITCARD', 'CASHPAYMENT_CREDIT', 'DEBT_COLLECTION_DE', 'ONLINE_TRANSFER_CREDIT', 'MULTIBANCO_CREDIT'];
 
     /**
      * @var aryPaymentGroups
@@ -189,6 +189,28 @@ class CallbackController extends Controller
                             'PRZELEWY24',
                             'PRZELEWY24_REFUND'
                         ],
+            'novalnet_postfinance_card' => [
+                            'POSTFINANCE_CARD',
+                            'POSTFINANCE_REFUND'
+                        ],
+            'novalnet_postfinance_efinance' => [
+                            'POSTFINANCE',
+                            'POSTFINANCE_REFUND'
+                        ],
+            'novalnet_applepay' => [
+                            'APPLEPAY',
+                            'APPLEPAY_BOOKBACK',
+                            'APPLEPAY_CHARGEBACK'
+                        ],
+            'novalnet_bancontact' => [
+                            'BANCONTACT',
+                            'REFUND_BY_BANK_TRANSFER_EU'
+                        ],
+            'novalnet_multibanco' => [
+                            'MULTIBANCO',
+                            'MULTIBANCO_CREDIT',
+                            'MULTIBANCO_REFUND'
+                        ]
             ];
 
     /**
@@ -309,7 +331,7 @@ class CallbackController extends Controller
                 }
                 
                 // Credit entry for the payment types Invoice, Prepayment and Cashpayment.
-                if(in_array($this->aryCaptureParams['payment_type'], ['INVOICE_CREDIT', 'CASHPAYMENT_CREDIT']) || $createPaymentEntry)
+                if(in_array($this->aryCaptureParams['payment_type'], ['INVOICE_CREDIT', 'CASHPAYMENT_CREDIT', 'MULTIBANCO_CREDIT']) || $createPaymentEntry)
                 {
                         if ($nnTransactionHistory->order_paid_amount < $nnTransactionHistory->order_total_amount || ($this->aryCaptureParams['payment_type'] == 'ONLINE_TRANSFER_CREDIT' && $createPaymentEntry))
                         {
@@ -352,7 +374,7 @@ class CallbackController extends Controller
                 $callbackComments = sprintf($this->paymentHelper->getTranslatedText('callback_reversal_execution',$orderLanguage), $nnTransactionHistory->tid, sprintf('%0.2f', ($this->aryCaptureParams['amount']/100)) , $this->aryCaptureParams['currency'], date('d.m.Y'), date('H:i:s'), $this->aryCaptureParams['tid'] );
         } else {
             
-            $callbackComments = (in_array($this->aryCaptureParams['payment_type'], ['CREDITCARD_BOOKBACK', 'PAYPAL_BOOKBACK', 'REFUND_BY_BANK_TRANSFER_EU', 'PRZELEWY24_REFUND', 'CASHPAYMENT_REFUND', 'GUARANTEED_INVOICE_BOOKBACK', 'GUARANTEED_SEPA_BOOKBACK'])) ? sprintf($this->paymentHelper->getTranslatedText('callback_bookback_execution',$orderLanguage), $nnTransactionHistory->tid, sprintf('%0.2f', ($this->aryCaptureParams['amount']/100)) , $this->aryCaptureParams['currency'], $this->aryCaptureParams['tid'] ) . '</br>' : sprintf($this->paymentHelper->getTranslatedText('callback_chargeback_execution',$orderLanguage), $nnTransactionHistory->tid, sprintf('%0.2f', ($this->aryCaptureParams['amount']/100)) , $this->aryCaptureParams['currency'], date('d.m.Y'), date('H:i:s'), $this->aryCaptureParams['tid'] ) . '</br>';
+            $callbackComments = (in_array($this->aryCaptureParams['payment_type'], ['CREDITCARD_BOOKBACK', 'PAYPAL_BOOKBACK', 'REFUND_BY_BANK_TRANSFER_EU', 'PRZELEWY24_REFUND', 'CASHPAYMENT_REFUND', 'GUARANTEED_INVOICE_BOOKBACK', 'GUARANTEED_SEPA_BOOKBACK', 'APPLEPAY_BOOKBACK'])) ? sprintf($this->paymentHelper->getTranslatedText('callback_bookback_execution',$orderLanguage), $nnTransactionHistory->tid, sprintf('%0.2f', ($this->aryCaptureParams['amount']/100)) , $this->aryCaptureParams['currency'], $this->aryCaptureParams['tid'] ) . '</br>' : sprintf($this->paymentHelper->getTranslatedText('callback_chargeback_execution',$orderLanguage), $nnTransactionHistory->tid, sprintf('%0.2f', ($this->aryCaptureParams['amount']/100)) , $this->aryCaptureParams['currency'], date('d.m.Y'), date('H:i:s'), $this->aryCaptureParams['tid'] ) . '</br>';
         }
                 
                 $this->saveTransactionLog($nnTransactionHistory);
@@ -422,7 +444,7 @@ class CallbackController extends Controller
                     {
                         return $this->renderTemplate('Novalnet Callbackscript received. Order already Paid');
                     }
-                }  elseif (in_array($this->aryCaptureParams['payment_type'], ['CREDITCARD', 'INVOICE_START', 'GUARANTEED_INVOICE', 'DIRECT_DEBIT_SEPA', 'GUARANTEED_DIRECT_DEBIT_SEPA'] )) {
+                }  elseif (in_array($this->aryCaptureParams['payment_type'], ['CREDITCARD', 'INVOICE_START', 'GUARANTEED_INVOICE', 'DIRECT_DEBIT_SEPA', 'GUARANTEED_DIRECT_DEBIT_SEPA', 'APPLEPAY'] )) {
                 
                     $transactionStatus = $this->payment_details($nnTransactionHistory->orderNo, $this->aryCaptureParams['tid']);
                     if ($this->aryCaptureParams['tid_status'] !=  $transactionStatus && (in_array($this->aryCaptureParams['tid_status'], ['91', '99', '100']) && in_array($transactionStatus, ['75', '91', '98', '99']))) {

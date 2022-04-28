@@ -1124,7 +1124,7 @@ class PaymentService
      */
     public function getSeamlessFormParams(&$paymentRequestData)
     {
-        $paymentRequestData['hfooter'] = '0';
+        $paymentRequestData['hfooter'] = '1';
         $paymentRequestData['thide'] = '1';
         $paymentRequestData['address_form'] = '0';
         $paymentRequestData['shide'] = '1';

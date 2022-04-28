@@ -337,6 +337,10 @@ class PaymentService
             $paymentRequestData['tel'] = $address->phone;
         }
         
+        if($paymentRequestData['key'] == '102') {
+            $this->getSeamlessFormParams($paymentRequestData);
+        }
+        
         $url = $this->getPaymentData($paymentKey, $paymentRequestData, $doRedirect);
         return [
             'data' => $paymentRequestData,
@@ -1109,6 +1113,23 @@ class PaymentService
              }
         }
         return $sendPaymentCall;
+    }
+    
+    /**
+     * Get Seamless payment form customization params
+     *
+     * @param array $paymentRequestData
+     * @param string $paymentKey
+     * @param bool $doRedirect
+     */
+    public function getSeamlessFormParams($paymentKey, &$paymentRequestData, $doRedirect )
+    {
+        $paymentRequestData['hfooter'] = '0';
+        $paymentRequestData['thide'] = '1';
+        $paymentRequestData['address_form'] = '0';
+        $paymentRequestData['shide'] = '1';
+        $paymentRequestData['lhide'] = '1';
+        $paymentRequestData['chosen_only'] = '1';
     }
     
 }

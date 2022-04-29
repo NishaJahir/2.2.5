@@ -253,7 +253,7 @@ class NovalnetServiceProvider extends ServiceProvider
             'Novalnet',
             ProcedureEntry::EVENT_TYPE_ORDER,
             $awaitingApprovalFilterTitle,
-            '\Novalnet\Procedures\NovalnetPaymentStatusFilter@run'
+            '\Novalnet\Procedures\PaymentStatusFilter@run'
         );
         
         $confirmedFilterTitle = [
@@ -265,7 +265,7 @@ class NovalnetServiceProvider extends ServiceProvider
             'Novalnet',
             ProcedureEntry::EVENT_TYPE_ORDER,
             $confirmedFilterTitle,
-            '\Novalnet\Procedures\NovalnetPaymentStatusFilter@run'
+            '\Novalnet\Procedures\PaymentStatusFilter@run'
         );
         
         $cancelledFilterTitle = [
@@ -277,7 +277,7 @@ class NovalnetServiceProvider extends ServiceProvider
             'Novalnet',
             ProcedureEntry::EVENT_TYPE_ORDER,
             $cancelledFilterTitle,
-            '\Novalnet\Procedures\NovalnetPaymentStatusFilter@run'
+            '\Novalnet\Procedures\PaymentStatusFilter@run'
         );
 
         // Listen for the event that gets the payment method content

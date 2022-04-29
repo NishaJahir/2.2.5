@@ -243,6 +243,43 @@ class NovalnetServiceProvider extends ServiceProvider
             '\Novalnet\Procedures\RefundEventProcedure@run'
         );
         
+        // Register filter for the Novalnet payment status
+        $awaitingApprovalFilterTitle = [
+            'de' =>  'Novalnet | Zur Genehmigung anstehend',
+            'en' =>  'Novalnet | Awaiting approval',
+        ];
+        
+        $eventProceduresService->registerFilter(
+            'Novalnet',
+            ProcedureEntry::EVENT_TYPE_ORDER,
+            $awaitingApprovalFilterTitle,
+            '\Novalnet\Procedures\NovalnetPaymentStatusFilter@run'
+        );
+        
+        $confirmedFilterTitle = [
+            'de' =>  'Novalnet | Gefangene',
+            'en' =>  'Novalnet | Captured',
+        ];
+        
+        $eventProceduresService->registerFilter(
+            'Novalnet',
+            ProcedureEntry::EVENT_TYPE_ORDER,
+            $confirmedFilterTitle,
+            '\Novalnet\Procedures\NovalnetPaymentStatusFilter@run'
+        );
+        
+        $cancelledFilterTitle = [
+            'de' =>  'Novalnet | Storniert',
+            'en' =>  'Novalnet | Cancelled',
+        ];
+        
+        $eventProceduresService->registerFilter(
+            'Novalnet',
+            ProcedureEntry::EVENT_TYPE_ORDER,
+            $cancelledFilterTitle,
+            '\Novalnet\Procedures\NovalnetPaymentStatusFilter@run'
+        );
+
         // Listen for the event that gets the payment method content
         $eventDispatcher->listen(GetPaymentMethodContent::class,
                 function(GetPaymentMethodContent $event) use($config, $paymentHelper, $addressRepository, $paymentService, $basketRepository, $paymentMethodService, $sessionStorage, $twig)

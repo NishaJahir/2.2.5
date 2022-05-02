@@ -54,33 +54,34 @@ class PaymentStatusFilter
      * @param TransactionService $tranactionService
      */
      
-    public function __construct(PaymentService $paymentService, TransactionService $tranactionService, EventProceduresTriggered $eventTriggered)
+    public function __construct(PaymentService $paymentService, TransactionService $tranactionService)
     {
         $this->paymentService  = $paymentService;
         $this->transaction     = $tranactionService;
-        $this->eventTrigger     = $eventTriggered;
     }   
     
     /**
      * @param EventProceduresTriggered $eventTriggered
      * 
      */
-    public function awaiting() {
-        $this->getNovalnetOrderPaymentStatus();
+    public function awaiting(EventProceduresTriggered $eventTriggered) {
+        
+        $this->getNovalnetOrderPaymentStatus($eventTriggered);
     }
  
-    public function confirmed() {
-       $this->getNovalnetOrderPaymentStatus();
+    public function confirmed(EventProceduresTriggered $eventTriggered) {
+       $this->getNovalnetOrderPaymentStatus($eventTriggered);
     }
  
-   public function canceled() {
+   public function canceled(EventProceduresTriggered $eventTriggered) {
       
-      $this->getNovalnetOrderPaymentStatus();
+      $this->getNovalnetOrderPaymentStatus($eventTriggered);
    }
  
-   public function getNovalnetOrderPaymentStatus() {
+   public function getNovalnetOrderPaymentStatus($eventTriggered) {
        /* @var $order Order */
-       $order = $this->eventTrigger->getOrder();
+     
+       $order = $eventTriggered->getOrder(); 
        $payments = pluginApp(\Plenty\Modules\Payment\Contracts\PaymentRepositoryContract::class);  
        $paymentDetails = $payments->getPaymentsByOrderId($order->id);
        $this->getLogger(__METHOD__)->error('payment detail', $paymentDetails);

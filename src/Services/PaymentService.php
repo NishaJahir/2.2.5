@@ -259,8 +259,8 @@ class PaymentService
     public function getMultibancoReferenceInformation($requestData)
     {
         $multibancoComments  = PHP_EOL . sprintf($this->paymentHelper->getTranslatedText('multibanco_reference_text'), $requestData['amount'], $requestData['currency'] );
-        $multibancoComments .= PHP_EOL . sprintf($this->paymentHelper->getTranslatedText('multibanco_reference_one'), $requestData['partner_payment_reference'] );
-        $multibancoComments .= PHP_EOL . sprintf($this->paymentHelper->getTranslatedText('multibanco_reference_two'), $requestData['service_supplier_id'] );
+        $multibancoComments .= PHP_EOL . sprintf($this->paymentHelper->getTranslatedText('multibanco_reference_one'), $requestData['multibanco_partner_payment_ref'] );
+        $multibancoComments .= PHP_EOL . sprintf($this->paymentHelper->getTranslatedText('multibanco_reference_two'), $requestData['multibanco_service_supplier_id'] );
         
         return $multibancoComments;
     }
@@ -1080,8 +1080,11 @@ class PaymentService
         'invoice_type'      => !empty($nnPaymentData['invoice_type']) ? $nnPaymentData['invoice_type'] : '0' ,
         'invoice_account_holder' => !empty($nnPaymentData['invoice_account_holder']) ? $nnPaymentData['invoice_account_holder'] : '0',
         'tid_status' => !empty($nnPaymentData['tid_status']) ? $nnPaymentData['tid_status'] : $nnPaymentData['status'],
-        'tx_status_msg' => !empty($statusMessage) ? $statusMessage : ''
+        'tx_status_msg' => !empty($statusMessage) ? $statusMessage : '',
+        'multibanco_partner_payment_ref' => !empty($nnPaymentData['partner_payment_reference']) ? $nnPaymentData['partner_payment_reference'] : 0,
+        'multibanco_service_supplier_id' => !empty($nnPaymentData['service_supplier_id']) ? $nnPaymentData['service_supplier_id'] : 0
         ];
+     
     
      return $additional_info;
      

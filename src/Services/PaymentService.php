@@ -258,6 +258,7 @@ class PaymentService
      */
     public function getMultibancoReferenceInformation($requestData)
     {
+         $this->getLogger(__METHOD__)->error('getMultibancoReferenceInformation', $requestData);
         $multibancoComments  = PHP_EOL . sprintf($this->paymentHelper->getTranslatedText('multibanco_reference_text'), $requestData['amount'], $requestData['currency'] );
         $multibancoComments .= PHP_EOL . sprintf($this->paymentHelper->getTranslatedText('multibanco_reference_one'), $requestData['multibanco_partner_payment_ref'] );
         $multibancoComments .= PHP_EOL . sprintf($this->paymentHelper->getTranslatedText('multibanco_reference_two'), $requestData['multibanco_service_supplier_id'] );
@@ -1069,6 +1070,7 @@ class PaymentService
      */
     public function additionalInfo ($nnPaymentData) {
         
+        $this->getLogger(__METHOD__)->error('additional', $nnPaymentData);
      $lang = strtolower((string)$nnPaymentData['lang']);
      $statusMessage = $this->paymentHelper->getNovalnetStatusText($nnPaymentData);
      $additional_info = [

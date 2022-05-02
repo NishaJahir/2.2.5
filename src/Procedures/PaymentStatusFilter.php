@@ -65,11 +65,11 @@ class PaymentStatusFilter
      * 
      */
     public function awaiting(EventProceduresTriggered $eventTriggered) {
-        
         $this->getNovalnetOrderPaymentStatus($eventTriggered);
     }
  
     public function confirmed(EventProceduresTriggered $eventTriggered) {
+      $this->getLogger(__METHOD__)->error('call', here);
        $this->getNovalnetOrderPaymentStatus($eventTriggered);
     }
  

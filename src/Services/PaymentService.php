@@ -260,8 +260,8 @@ class PaymentService
     {
          $this->getLogger(__METHOD__)->error('getMultibancoReferenceInformation', $requestData);
         $multibancoComments  = PHP_EOL . sprintf($this->paymentHelper->getTranslatedText('multibanco_reference_text'), $requestData['amount'], $requestData['currency'] );
-        $multibancoComments .= PHP_EOL . sprintf($this->paymentHelper->getTranslatedText('multibanco_reference_one'), $requestData['multibanco_partner_payment_ref'] );
-        $multibancoComments .= PHP_EOL . sprintf($this->paymentHelper->getTranslatedText('multibanco_reference_two'), $requestData['multibanco_service_supplier_id'] );
+        $multibancoComments .= PHP_EOL . $this->paymentHelper->getTranslatedText('multibanco_reference_one') . $requestData['multibanco_partner_payment_ref'];
+        $multibancoComments .= PHP_EOL . $this->paymentHelper->getTranslatedText('multibanco_reference_two') . $requestData['multibanco_service_supplier_id'];
         
         return $multibancoComments;
     }

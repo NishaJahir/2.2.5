@@ -67,9 +67,11 @@ class PaymentStatusFilter
        $order = $eventTriggered->getOrder(); 
        $payments = pluginApp(\Plenty\Modules\Payment\Contracts\PaymentRepositoryContract::class);  
        $paymentDetails = $payments->getPaymentsByOrderId($order->id);
+       $this->getLogger(__METHOD__)->error('test', $paymentDetails);
        foreach ($paymentDetails as $paymentDetail) {
           $paymentStatus = $paymentDetail->status;
        }
+       $this->getLogger(__METHOD__)->error('status', $paymentStatus);
        if(in_array($paymentStatus, ['1', '3', '5'])) {
           return true;
        } else {

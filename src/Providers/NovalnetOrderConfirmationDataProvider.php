@@ -115,7 +115,7 @@ class NovalnetOrderConfirmationDataProvider
                             $comments .= PHP_EOL . $paymentHelper->getTranslatedText('gurantee_sepa_pending_payment_text');
                         }
                     }
-                    $get_transaction_details = $database->query(TransactionLog::class)->where('orderNo', '=', $orderId)->whereIn('paymentName', ['novalnet_invoice', 'novalnet_prepayment', 'novalnet_cashpayment'])->get();
+                    $get_transaction_details = $database->query(TransactionLog::class)->where('orderNo', '=', $orderId)->whereIn('paymentName', ['novalnet_invoice', 'novalnet_prepayment', 'novalnet_cashpayment', 'novalnet_multibanco'])->get();
                     $totalCallbackAmount = 0;
                     foreach ($get_transaction_details as $transaction_details) {
                        $totalCallbackAmount += $transaction_details->callbackAmount;

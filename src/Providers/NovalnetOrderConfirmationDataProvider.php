@@ -129,6 +129,10 @@ class NovalnetOrderConfirmationDataProvider
                     if($db_details['payment_id'] == '59' && ($transaction_details->amount > $totalCallbackAmount) && $tid_status == '100') {
                         $comments .= $cashpayment_comments;
                     }
+                    if($db_details['payment_id'] == '73' && ($transaction_details->amount > $totalCallbackAmount) && $tid_status == '100') {
+                        $comments .= PHP_EOL . $paymentService->getMultibancoReferenceInformation($db_details);
+                    }
+                    
                 }
             }
                     $comment .= (string) $comments;

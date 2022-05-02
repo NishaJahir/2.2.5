@@ -359,11 +359,16 @@ class PaymentHelper
             '37'  => 'novalnet_sepa',
             '40'  => 'novalnet_sepa',
             '41'  => 'novalnet_invoice',
+            '44'  => 'novalnet_bancontact',
             '49'  => 'novalnet_ideal',
             '50'  => 'novalnet_eps',
             '59'  => 'novalnet_cashpayment',
             '69'  => 'novalnet_giropay',
+            '73'  => 'novalnet_multibanco',
             '78'  => 'novalnet_przelewy',
+            '87'  => 'novalnet_postfinance_card',
+            '88'  => 'novalnet_postfinance_efinance',
+            '102'  => 'novalnet_applepay'
         ];
         return $paymentMethodName[$paymentKey];
     }

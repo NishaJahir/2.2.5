@@ -253,7 +253,7 @@ class NovalnetServiceProvider extends ServiceProvider
             'Novalnet',
             ProcedureEntry::EVENT_TYPE_ORDER,
             $awaitingApprovalFilterTitle,
-            '\Novalnet\Procedures\PaymentStatusFilter@run'
+            '\Novalnet\Procedures\PaymentStatusFilter@awaiting'
         );
         
         $confirmedFilterTitle = [
@@ -265,7 +265,7 @@ class NovalnetServiceProvider extends ServiceProvider
             'Novalnet',
             ProcedureEntry::EVENT_TYPE_ORDER,
             $confirmedFilterTitle,
-            '\Novalnet\Procedures\PaymentStatusFilter@run'
+            '\Novalnet\Procedures\PaymentStatusFilter@confirmed'
         );
         
         $cancelledFilterTitle = [
@@ -277,7 +277,19 @@ class NovalnetServiceProvider extends ServiceProvider
             'Novalnet',
             ProcedureEntry::EVENT_TYPE_ORDER,
             $cancelledFilterTitle,
-            '\Novalnet\Procedures\PaymentStatusFilter@run'
+            '\Novalnet\Procedures\PaymentStatusFilter@canceled'
+        );
+        
+        $manualOrderFilterTitle = [
+            'de' =>  'Novalnet | Order created from Backend',
+            'en' =>  'Novalnet | Auftrag aus Backend erstellt',
+        ];
+        
+        $eventProceduresService->registerFilter(
+            'Novalnet',
+            ProcedureEntry::EVENT_TYPE_ORDER,
+            $manualOrderFilterTitle,
+            '\Novalnet\Procedures\ManuallyOrderCreated@run'
         );
 
         // Listen for the event that gets the payment method content

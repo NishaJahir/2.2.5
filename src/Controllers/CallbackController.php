@@ -374,7 +374,7 @@ class CallbackController extends Controller
                 $callbackComments = sprintf($this->paymentHelper->getTranslatedText('callback_reversal_execution',$orderLanguage), $nnTransactionHistory->tid, sprintf('%0.2f', ($this->aryCaptureParams['amount']/100)) , $this->aryCaptureParams['currency'], date('d.m.Y'), date('H:i:s'), $this->aryCaptureParams['tid'] );
         } else {
             
-            $callbackComments = (in_array($this->aryCaptureParams['payment_type'], ['CREDITCARD_BOOKBACK', 'PAYPAL_BOOKBACK', 'REFUND_BY_BANK_TRANSFER_EU', 'PRZELEWY24_REFUND', 'CASHPAYMENT_REFUND', 'GUARANTEED_INVOICE_BOOKBACK', 'GUARANTEED_SEPA_BOOKBACK', 'APPLEPAY_BOOKBACK'])) ? sprintf($this->paymentHelper->getTranslatedText('callback_bookback_execution',$orderLanguage), $nnTransactionHistory->tid, sprintf('%0.2f', ($this->aryCaptureParams['amount']/100)) , $this->aryCaptureParams['currency'], $this->aryCaptureParams['tid'] ) . '</br>' : sprintf($this->paymentHelper->getTranslatedText('callback_chargeback_execution',$orderLanguage), $nnTransactionHistory->tid, sprintf('%0.2f', ($this->aryCaptureParams['amount']/100)) , $this->aryCaptureParams['currency'], date('d.m.Y'), date('H:i:s'), $this->aryCaptureParams['tid'] ) . '</br>';
+            $callbackComments = (in_array($this->aryCaptureParams['payment_type'], ['CREDITCARD_BOOKBACK', 'PAYPAL_BOOKBACK', 'REFUND_BY_BANK_TRANSFER_EU', 'PRZELEWY24_REFUND', 'CASHPAYMENT_REFUND', 'GUARANTEED_INVOICE_BOOKBACK', 'GUARANTEED_SEPA_BOOKBACK', 'POSTFINANCE_REFUND', 'APPLEPAY_BOOKBACK'])) ? sprintf($this->paymentHelper->getTranslatedText('callback_bookback_execution',$orderLanguage), $nnTransactionHistory->tid, sprintf('%0.2f', ($this->aryCaptureParams['amount']/100)) , $this->aryCaptureParams['currency'], $this->aryCaptureParams['tid'] ) . '</br>' : sprintf($this->paymentHelper->getTranslatedText('callback_chargeback_execution',$orderLanguage), $nnTransactionHistory->tid, sprintf('%0.2f', ($this->aryCaptureParams['amount']/100)) , $this->aryCaptureParams['currency'], date('d.m.Y'), date('H:i:s'), $this->aryCaptureParams['tid'] ) . '</br>';
         }
                 
                 $this->saveTransactionLog($nnTransactionHistory);
@@ -415,7 +415,7 @@ class CallbackController extends Controller
             elseif($this->getPaymentTypeLevel() == 0 && $this->aryCaptureParams['status'] == '100')
             {
                 
-                if(in_array($this->aryCaptureParams['payment_type'], ['PAYPAL','PRZELEWY24']) && $this->aryCaptureParams['status'] == '100' && $this->aryCaptureParams['tid_status'] == '100')
+                if(in_array($this->aryCaptureParams['payment_type'], ['PAYPAL','PRZELEWY24', 'POSTFINANCE', 'POSTFINANCE_CARD']) && $this->aryCaptureParams['status'] == '100' && $this->aryCaptureParams['tid_status'] == '100')
                 {
                     if ($nnTransactionHistory->order_paid_amount < $nnTransactionHistory->order_total_amount)
                     {

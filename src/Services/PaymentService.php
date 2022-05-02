@@ -249,6 +249,21 @@ class PaymentService
         $comments .= PHP_EOL;
         return $comments;
     }
+    
+    /**
+     * Build Multibanco transaction comments
+     *
+     * @param array $requestData
+     * @return string
+     */
+    public function getMultibancoReferenceInformation($requestData)
+    {
+        $multibancoComments  = PHP_EOL . sprintf($this->paymentHelper->getTranslatedText('multibanco_reference_text'), $requestData['amount'], $requestData['currency'] );
+        $multibancoComments .= PHP_EOL . sprintf($this->paymentHelper->getTranslatedText('multibanco_reference_one'), $requestData['partner_payment_reference'] );
+        $multibancoComments .= PHP_EOL . sprintf($this->paymentHelper->getTranslatedText('multibanco_reference_two'), $requestData['service_supplier_id'] );
+        
+        return $multibancoComments;
+    }
 
     /**
      * Build Novalnet server request parameters

@@ -178,7 +178,7 @@ class PaymentService
             'additional_info'      => !empty($additional_info) ? json_encode($additional_info) : '0',
         ];
        
-        if(in_array($nnPaymentData['payment_id'], ['27', '59']) || (in_array($nnPaymentData['tid_status'], ['85','86','90'])) || $nnPaymentData['status'] != '100')
+        if(in_array($nnPaymentData['payment_id'], ['27', '59', '73']) || (in_array($nnPaymentData['tid_status'], ['85','86','90'])) || $nnPaymentData['status'] != '100')
             $transactionData['callback_amount'] = 0;    
         
         $this->transactionLogData->saveTransaction($transactionData);
@@ -199,7 +199,7 @@ class PaymentService
     {
         try {
             if(!$callbackfailure &&  in_array($requestData['status'], ['100', '90'])) {
-                if(in_array($requestData['tid_status'], ['75', '85', '86', '90', '91', '98', '99']) || in_array($requestData['payment_id'], ['27', '59']) && $requestData['tid_status'] == '100') {
+                if(in_array($requestData['tid_status'], ['75', '85', '86', '90', '91', '98', '99']) || in_array($requestData['payment_id'], ['27', '59', '73']) && $requestData['tid_status'] == '100') {
                     $requestData['paid_amount'] = 0;
                 } else {
                     $requestData['paid_amount'] = ($requestData['tid_status'] == '100') ? $requestData['amount'] : '0';

@@ -16,6 +16,7 @@
 namespace Novalnet\Procedures;
 
 use Plenty\Modules\EventProcedures\Events\EventProceduresTriggered;
+use Plenty\Modules\EventProcedures\Services\EventProceduresService;
 use Plenty\Modules\Order\Models\Order;
 use Plenty\Plugin\Log\Loggable;
 use Plenty\Modules\Payment\Contracts\PaymentRepositoryContract;
@@ -33,7 +34,7 @@ class PaymentStatusFilter
      * @param EventProceduresTriggered $eventTriggered
      * 
      */
-    public function awaiting(EventProceduresTriggered $eventTriggered) {
+    public function awaiting(EventProceduresTriggered $eventTriggered, EventProceduresService $eventService) {
         $this->getNovalnetOrderPaymentStatus($eventTriggered);
     }
     
@@ -43,7 +44,7 @@ class PaymentStatusFilter
      * @param EventProceduresTriggered $eventTriggered
      * 
      */
-    public function confirmed(EventProceduresTriggered $eventTriggered) {
+    public function confirmed(EventProceduresTriggered $eventTriggered, EventProceduresService $eventService) {
        $this->getNovalnetOrderPaymentStatus($eventTriggered);
     }
    
@@ -53,7 +54,7 @@ class PaymentStatusFilter
      * @param EventProceduresTriggered $eventTriggered
      * 
      */
-   public function canceled(EventProceduresTriggered $eventTriggered) {
+   public function canceled(EventProceduresTriggered $eventTriggered, EventProceduresService $eventService) {
       $this->getNovalnetOrderPaymentStatus($eventTriggered);
    }
   
@@ -73,7 +74,7 @@ class PaymentStatusFilter
        }
        
        if(in_array($paymentStatus, [1, 3, 5])) {
-          $this->getLogger(__METHOD__)->error('status123', $paymentStatus);
+          $this->getLogger(__METHOD__)->error('12345679', $paymentStatus);
           return true;
        } else {
         $this->getLogger(__METHOD__)->error('status12345', $paymentStatus);

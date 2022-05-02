@@ -67,7 +67,7 @@ class ManuallyOrderCreated
       
        $payments = pluginApp(\Plenty\Modules\Payment\Contracts\PaymentRepositoryContract::class);  
        $paymentDetails = $payments->getPaymentsByOrderId($order->id);
-       
+       $this->getLogger(__METHOD__)->error('manul order', $paymentDetails);
         
         foreach ($paymentDetails as $paymentDetail)
         {

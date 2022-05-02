@@ -499,7 +499,7 @@ class NovalnetServiceProvider extends ServiceProvider
         foreach ($get_transaction_details as $transaction_details) {
            $totalCallbackAmount += $transaction_details->callbackAmount;
         }
-        if (in_array($paymentKey, ['NOVALNET_INVOICE', 'NOVALNET_PREPAYMENT', 'NOVALNET_CC', 'NOVALNET_SEPA', 'NOVALNET_CASHPAYMENT', 'NOVALNET_SOFORT', 'NOVALNET_IDEAL', 'NOVALNET_EPS', 'NOVALNET_GIROPAY', 'NOVALNET_PAYPAL', 'NOVALNET_PRZELEWY']) && !empty($db_details['plugin_version'])
+        if (in_array($paymentKey, ['NOVALNET_INVOICE', 'NOVALNET_PREPAYMENT', 'NOVALNET_CC', 'NOVALNET_SEPA', 'NOVALNET_CASHPAYMENT', 'NOVALNET_SOFORT', 'NOVALNET_IDEAL', 'NOVALNET_EPS', 'NOVALNET_GIROPAY', 'NOVALNET_PAYPAL', 'NOVALNET_PRZELEWY', 'NOVALNET_APPLEPAY', 'NOVALNET_POSTFINANCE_CARD', 'NOVALNET_POSTFINANCE_EFINANCE', 'NOVALNET_BANCONTACT', 'NOVALNET_MULTIBANCO']) && !empty($db_details['plugin_version'])
         ) {
              
         try {
@@ -518,6 +518,10 @@ class NovalnetServiceProvider extends ServiceProvider
                  if($db_details['payment_id'] == '59' && ($transaction_details->amount > $totalCallbackAmount) && $tid_status == '100' ) {
                 $comments .= PHP_EOL . $cashpayment_comments;   
                 }
+                if($db_details['payment_id'] == '73' && ($transaction_details->amount > $totalCallbackAmount) && $tid_status == '100') {
+                        $comments .= PHP_EOL . $paymentService->getMultibancoReferenceInformation($db_details);
+                }
+            
                 $orderPdfGenerationModel = pluginApp(OrderPdfGeneration::class);
                 $orderPdfGenerationModel->advice = $paymentHelper->getTranslatedText('novalnet_details'). PHP_EOL . $comments;
                 if ($event->getDocType() == Document::INVOICE) {

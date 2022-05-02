@@ -72,7 +72,7 @@ class PaymentStatusFilter
           $paymentStatus = $paymentDetail->status;
        }
        $this->getLogger(__METHOD__)->error('status', $paymentStatus);
-       if(in_array($paymentStatus, ['1', '3', '5'])) {
+       if(in_array($paymentStatus, [1, 3, 5])) {
           return true;
        } else {
           return false;

@@ -40,6 +40,12 @@ class PaymentStatusFilter
      * @var Transaction
      */
     private $transaction;
+ 
+    /**
+     *
+     * @var Transaction
+     */
+    private $eventTriggered;
     
     /**
      * Constructor.

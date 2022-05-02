@@ -19,8 +19,6 @@ use Plenty\Modules\EventProcedures\Events\EventProceduresTriggered;
 use Plenty\Modules\Order\Models\Order;
 use Plenty\Plugin\Log\Loggable;
 use Plenty\Modules\Payment\Contracts\PaymentRepositoryContract;
-use Novalnet\Services\PaymentService;
-use Novalnet\Services\TransactionService;
 
 /**
  * Class PaymentStatusFilter
@@ -28,67 +26,54 @@ use Novalnet\Services\TransactionService;
 class PaymentStatusFilter
 {
     use Loggable;
-    
-    /**
-     *
-     * @var PaymentService
-     */
-    private $paymentService;
-    
-    /**
-     *
-     * @var Transaction
-     */
-    private $transaction;
  
     /**
+     * Filter process for the pending and on-hold payment status 
      *
-     * @var Transaction
-     */
-    private $eventTriggered;
-    
-    /**
-     * Constructor.
-     *
-     * @param PaymentService $paymentService
-     * @param TransactionService $tranactionService
-     */
-     
-    public function __construct(PaymentService $paymentService, TransactionService $tranactionService)
-    {
-        $this->paymentService  = $paymentService;
-        $this->transaction     = $tranactionService;
-    }   
-    
-    /**
      * @param EventProceduresTriggered $eventTriggered
      * 
      */
     public function awaiting(EventProceduresTriggered $eventTriggered) {
-     $this->getLogger(__METHOD__)->error('call 123', here);
         $this->getNovalnetOrderPaymentStatus($eventTriggered);
     }
- 
+    
+     /**
+     * Filter process for the confirmed payment status 
+     *
+     * @param EventProceduresTriggered $eventTriggered
+     * 
+     */
     public function confirmed(EventProceduresTriggered $eventTriggered) {
-      $this->getLogger(__METHOD__)->error('call', here);
        $this->getNovalnetOrderPaymentStatus($eventTriggered);
     }
- 
+   
+   /**
+     * Filter process for the confirmed payment status 
+     *
+     * @param EventProceduresTriggered $eventTriggered
+     * 
+     */
    public function canceled(EventProceduresTriggered $eventTriggered) {
-      
       $this->getNovalnetOrderPaymentStatus($eventTriggered);
    }
- 
+  
+   /**
+     * Get the payment status based on the order Id
+     *
+     * return bool 
+    */
    public function getNovalnetOrderPaymentStatus($eventTriggered) {
        /* @var $order Order */
-     
        $order = $eventTriggered->getOrder(); 
        $payments = pluginApp(\Plenty\Modules\Payment\Contracts\PaymentRepositoryContract::class);  
        $paymentDetails = $payments->getPaymentsByOrderId($order->id);
-       $this->getLogger(__METHOD__)->error('payment detail', $paymentDetails);
-       foreach ($paymentDetails as $paymentDetail)
-        {
-            $paymentStatus = $paymentDetail->status;
-        }
+       foreach ($paymentDetails as $paymentDetail) {
+          $paymentStatus = $paymentDetail->status;
+       }
+       if(in_array($paymentStatus, ['1', '3', '5'])) {
+          return true;
+       } else {
+          return false;
+       }
    }
 }

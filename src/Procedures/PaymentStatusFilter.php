@@ -71,10 +71,12 @@ class PaymentStatusFilter
        foreach ($paymentDetails as $paymentDetail) {
           $paymentStatus = $paymentDetail->status;
        }
-       $this->getLogger(__METHOD__)->error('status', $paymentStatus);
+       
        if(in_array($paymentStatus, [1, 3, 5])) {
+          $this->getLogger(__METHOD__)->error('status123', $paymentStatus);
           return true;
        } else {
+        $this->getLogger(__METHOD__)->error('status12345', $paymentStatus);
           return false;
        }
    }

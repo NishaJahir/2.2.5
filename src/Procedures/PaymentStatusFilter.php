@@ -72,7 +72,7 @@ class PaymentStatusFilter
       $this->getNovalnetOrderPaymentStatus();
    }
  
-   public function getNovalnetOrderPaymentStatus() 
+   public function getNovalnetOrderPaymentStatus() {
        /* @var $order Order */
        $order = $this->eventTrigger->getOrder();
        $payments = pluginApp(\Plenty\Modules\Payment\Contracts\PaymentRepositoryContract::class);  

@@ -48,39 +48,39 @@ class PaymentStatusFilter
      * @param TransactionService $tranactionService
      */
      
-    public function __construct(PaymentService $paymentService, TransactionService $tranactionService)
+    public function __construct(PaymentService $paymentService, TransactionService $tranactionService, EventProceduresTriggered $eventTriggered)
     {
         $this->paymentService  = $paymentService;
         $this->transaction     = $tranactionService;
+        $this->eventTrigger     = $eventTriggered;
     }   
     
     /**
      * @param EventProceduresTriggered $eventTriggered
      * 
      */
-    public function run(
-        EventProceduresTriggered $eventTriggered
-    ) {
-        /* @var $order Order */
-     
-       $order = $eventTriggered->getOrder(); 
+    public function awaiting() {
+        $this->getNovalnetOrderPaymentStatus();
+    }
+ 
+    public function confirmed() {
+       $this->getNovalnetOrderPaymentStatus();
+    }
+ 
+   public function canceled() {
       
+      $this->getNovalnetOrderPaymentStatus();
+   }
+ 
+   public function getNovalnetOrderPaymentStatus() 
+       /* @var $order Order */
+       $order = $this->eventTrigger->getOrder();
        $payments = pluginApp(\Plenty\Modules\Payment\Contracts\PaymentRepositoryContract::class);  
        $paymentDetails = $payments->getPaymentsByOrderId($order->id);
-    }
- 
-    public function confirmed(
-        EventProceduresTriggered $eventTriggered
-    ) {
-     $order = $eventTriggered->getOrder(); 
-       $this->getLogger(__METHOD__)->error('confirmed', $order);
-    }
- 
-   public function canceled(
-        EventProceduresTriggered $eventTriggered
-    ) {
-      $order = $eventTriggered->getOrder(); 
-       $this->getLogger(__METHOD__)->error('canceled', $order);
-    
+       $this->getLogger(__METHOD__)->error('payment detail', $paymentDetails);
+       foreach ($paymentDetails as $paymentDetail)
+        {
+            $paymentStatus = $paymentDetail->status;
+        }
    }
 }

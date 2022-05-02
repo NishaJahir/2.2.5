@@ -64,27 +64,12 @@ class ManuallyOrderCreated
         /* @var $order Order */
      
        $order = $eventTriggered->getOrder(); 
-      
-       $payments = pluginApp(\Plenty\Modules\Payment\Contracts\PaymentRepositoryContract::class);  
-       $paymentDetails = $payments->getPaymentsByOrderId($order->id);
+       foreach($order->properties as $orderProperty) {
+       
+       }
        $this->getLogger(__METHOD__)->error('manul order', $order);
+          
         
-        foreach ($paymentDetails as $paymentDetail)
-        {
-            $property = $paymentDetail->properties;
-            foreach($property as $proper)
-            {
-                  if($proper->typeId == 1)
-                  {
-                        $tid = $proper->value;
-                  }
-                  if($proper->typeId == 30)
-                  {
-                        $status = $proper->value;
-                  }
-            }
         }
-
-        
     }
 }

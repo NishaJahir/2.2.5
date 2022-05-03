@@ -53,7 +53,7 @@ class PaymentStatusFilter
      * EventProceduresTriggered $eventTriggered
      * 
      */
-   public function canceled(EventProceduresTriggered $eventTriggered, EventProceduresService $eventService) {
+   public function canceled(EventProceduresTriggered $eventTriggered) {
       return $this->getNovalnetOrderPaymentStatus($eventTriggered);
    }
   

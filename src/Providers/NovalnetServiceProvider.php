@@ -253,7 +253,7 @@ class NovalnetServiceProvider extends ServiceProvider
             'Novalnet',
             ProcedureEntry::EVENT_TYPE_ORDER,
             $awaitingApprovalFilterTitle,
-            '\Novalnet\Procedures\PaymentStatusFilter@awaiting'
+            '\Novalnet\Procedures\PaymentStatusFilter@pending'
         );
         
         $confirmedFilterTitle = [

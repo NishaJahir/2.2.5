@@ -16,7 +16,6 @@
 namespace Novalnet\Procedures;
 
 use Plenty\Modules\EventProcedures\Events\EventProceduresTriggered;
-use Plenty\Modules\EventProcedures\Services\EventProceduresService;
 use Plenty\Modules\Order\Models\Order;
 use Plenty\Plugin\Log\Loggable;
 use Plenty\Modules\Payment\Contracts\PaymentRepositoryContract;
@@ -34,8 +33,8 @@ class PaymentStatusFilter
      * EventProceduresTriggered $eventTriggered
      * 
      */
-    public function awaiting(EventProceduresTriggered $eventTriggered, EventProceduresService $eventService) {
-        return true;
+    public function awaiting(EventProceduresTriggered $eventTriggered) {
+        return $this->getNovalnetOrderPaymentStatus($eventTriggered);
     }
     
      /**
@@ -44,10 +43,8 @@ class PaymentStatusFilter
      * EventProceduresTriggered $eventTriggered
      * 
      */
-    public function confirmed(EventProceduresTriggered $eventTriggered, EventProceduresService $eventService) {
-       /* @var $order Order */
-       $order = $eventTriggered->getOrder();
-       return $this->getNovalnetOrderPaymentStatus($order);
+    public function confirmed(EventProceduresTriggered $eventTriggered) {
+       return $this->getNovalnetOrderPaymentStatus($eventTriggered);
     }
    
    /**
@@ -57,7 +54,7 @@ class PaymentStatusFilter
      * 
      */
    public function canceled(EventProceduresTriggered $eventTriggered, EventProceduresService $eventService) {
-      return true;
+      return $this->getNovalnetOrderPaymentStatus($eventTriggered);
    }
   
    /**
@@ -65,7 +62,9 @@ class PaymentStatusFilter
      *
      * return bool 
     */
-   public function getNovalnetOrderPaymentStatus($order) {
+   public function getNovalnetOrderPaymentStatus($eventTriggered) {
+       /* @var $order Order */
+       $order = $eventTriggered->getOrder();
        $payments = pluginApp(\Plenty\Modules\Payment\Contracts\PaymentRepositoryContract::class);  
        $paymentDetails = $payments->getPaymentsByOrderId($order->id);
        $this->getLogger(__METHOD__)->error('nnnnnnnnnn', $paymentDetails);

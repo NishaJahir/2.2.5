@@ -47,7 +47,7 @@ class PaymentStatusFilter
     public function confirmed(EventProceduresTriggered $eventTriggered, EventProceduresService $eventService) {
        /* @var $order Order */
        $order = $eventTriggered->getOrder();
-       $this->getNovalnetOrderPaymentStatus($order);
+       return $this->getNovalnetOrderPaymentStatus($order);
     }
    
    /**

@@ -35,7 +35,7 @@ class PaymentStatusFilter
      * 
      */
     public function awaiting(EventProceduresTriggered $eventTriggered, EventProceduresService $eventService) {
-        $this->getNovalnetOrderPaymentStatus($eventTriggered);
+        return true;
     }
     
      /**
@@ -45,7 +45,7 @@ class PaymentStatusFilter
      * 
      */
     public function confirmed(EventProceduresTriggered $eventTriggered, EventProceduresService $eventService) {
-       $this->getNovalnetOrderPaymentStatus($eventTriggered);
+       return true;
     }
    
    /**
@@ -55,7 +55,7 @@ class PaymentStatusFilter
      * 
      */
    public function canceled(EventProceduresTriggered $eventTriggered, EventProceduresService $eventService) {
-      $this->getNovalnetOrderPaymentStatus($eventTriggered);
+      return true;
    }
   
    /**

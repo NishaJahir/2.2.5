@@ -45,7 +45,9 @@ class PaymentStatusFilter
      * 
      */
     public function confirmed(EventProceduresTriggered $eventTriggered, EventProceduresService $eventService) {
-       return true;
+       /* @var $order Order */
+       $order = $eventTriggered->getOrder();
+       $this->getNovalnetOrderPaymentStatus($order);
     }
    
    /**
@@ -63,12 +65,10 @@ class PaymentStatusFilter
      *
      * return bool 
     */
-   public function getNovalnetOrderPaymentStatus($eventTriggered) {
-       /* @var $order Order */
-       $order = $eventTriggered->getOrder(); 
+   public function getNovalnetOrderPaymentStatus($order) {
        $payments = pluginApp(\Plenty\Modules\Payment\Contracts\PaymentRepositoryContract::class);  
        $paymentDetails = $payments->getPaymentsByOrderId($order->id);
-       $this->getLogger(__METHOD__)->error('test', $paymentDetails);
+       $this->getLogger(__METHOD__)->error('nnnnnnnnnn', $paymentDetails);
        foreach ($paymentDetails as $paymentDetail) {
           $paymentStatus = $paymentDetail->status;
        }

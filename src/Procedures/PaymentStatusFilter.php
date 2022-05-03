@@ -31,7 +31,7 @@ class PaymentStatusFilter
     /**
      * Filter process for the pending and on-hold payment status 
      *
-     * @param EventProceduresTriggered $eventTriggered
+     * EventProceduresTriggered $eventTriggered
      * 
      */
     public function awaiting(EventProceduresTriggered $eventTriggered, EventProceduresService $eventService) {
@@ -41,7 +41,7 @@ class PaymentStatusFilter
      /**
      * Filter process for the confirmed payment status 
      *
-     * @param EventProceduresTriggered $eventTriggered
+     * EventProceduresTriggered $eventTriggered
      * 
      */
     public function confirmed(EventProceduresTriggered $eventTriggered, EventProceduresService $eventService) {
@@ -51,7 +51,7 @@ class PaymentStatusFilter
    /**
      * Filter process for the confirmed payment status 
      *
-     * @param EventProceduresTriggered $eventTriggered
+     * EventProceduresTriggered $eventTriggered
      * 
      */
    public function canceled(EventProceduresTriggered $eventTriggered, EventProceduresService $eventService) {
@@ -74,10 +74,10 @@ class PaymentStatusFilter
        }
        
        if(in_array($paymentStatus, [1, 3, 5])) {
-          $this->getLogger(__METHOD__)->error('12345679', $paymentStatus);
+          $this->getLogger(__METHOD__)->error('sas', $paymentStatus);
           return true;
        } else {
-        $this->getLogger(__METHOD__)->error('status12345', $paymentStatus);
+        $this->getLogger(__METHOD__)->error('nis', $paymentStatus);
           return false;
        }
    }

@@ -33,8 +33,8 @@ class PaymentStatusFilter
      * EventProceduresTriggered $eventTriggered
      * 
      */
-    public function awaiting(EventProceduresTriggered $eventTriggered) {
-     $this->getLogger(__METHOD__)->error('call', 'await');
+    public function awaitingApproval(EventProceduresTriggered $eventTriggered) {
+        $this->getLogger(__METHOD__)->error('awaitingApproval', 'await');
         return $this->getNovalnetOrderPaymentStatus($eventTriggered, 1);
     }
     
@@ -58,10 +58,7 @@ class PaymentStatusFilter
       return $this->getNovalnetOrderPaymentStatus($eventTriggered, 5);
    }
  
-   public function pending(EventProceduresTriggered $eventTriggered) {
-     $this->getLogger(__METHOD__)->error('pending', 'await');
-        return $this->getNovalnetOrderPaymentStatus($eventTriggered, 1);
-    }
+   
   
    /**
      * Get the payment status based on the order Id
@@ -73,16 +70,16 @@ class PaymentStatusFilter
        $order = $eventTriggered->getOrder();
        $payments = pluginApp(\Plenty\Modules\Payment\Contracts\PaymentRepositoryContract::class);  
        $paymentDetails = $payments->getPaymentsByOrderId($order->id);
-       $this->getLogger(__METHOD__)->error('nnnnnnnnnn', $paymentDetails);
+       $this->getLogger(__METHOD__)->error('n1', $paymentDetails);
        foreach ($paymentDetails as $paymentDetail) {
           $paymentStatus = $paymentDetail->status;
        }
        
        if($paymentStatusId == $paymentStatus) {
-          $this->getLogger(__METHOD__)->error('nisran', $paymentStatus);
+          $this->getLogger(__METHOD__)->error('n2', $paymentStatus);
           return true;
        } else {
-        $this->getLogger(__METHOD__)->error('nis', $paymentStatus);
+        $this->getLogger(__METHOD__)->error('n3', $paymentStatus);
           return false;
        }
    }

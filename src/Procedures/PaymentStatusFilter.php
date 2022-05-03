@@ -34,7 +34,7 @@ class PaymentStatusFilter
      * 
      */
     public function awaiting(EventProceduresTriggered $eventTriggered) {
-        return $this->getNovalnetOrderPaymentStatus($eventTriggered);
+        return $this->getNovalnetOrderPaymentStatus($eventTriggered, 1);
     }
     
      /**
@@ -44,7 +44,7 @@ class PaymentStatusFilter
      * 
      */
     public function confirmed(EventProceduresTriggered $eventTriggered) {
-       return $this->getNovalnetOrderPaymentStatus($eventTriggered);
+       return $this->getNovalnetOrderPaymentStatus($eventTriggered, 3);
     }
    
    /**
@@ -54,7 +54,7 @@ class PaymentStatusFilter
      * 
      */
    public function canceled(EventProceduresTriggered $eventTriggered) {
-      return $this->getNovalnetOrderPaymentStatus($eventTriggered);
+      return $this->getNovalnetOrderPaymentStatus($eventTriggered, 5);
    }
   
    /**
@@ -62,7 +62,7 @@ class PaymentStatusFilter
      *
      * return bool 
     */
-   public function getNovalnetOrderPaymentStatus($eventTriggered) {
+   public function getNovalnetOrderPaymentStatus($eventTriggered, $paymentStatusId) {
        /* @var $order Order */
        $order = $eventTriggered->getOrder();
        $payments = pluginApp(\Plenty\Modules\Payment\Contracts\PaymentRepositoryContract::class);  
@@ -72,8 +72,8 @@ class PaymentStatusFilter
           $paymentStatus = $paymentDetail->status;
        }
        
-       if(in_array($paymentStatus, [1, 3, 5])) {
-          $this->getLogger(__METHOD__)->error('sas', $paymentStatus);
+       if($paymentStatusId == $paymentStatus) {
+          $this->getLogger(__METHOD__)->error('nisran', $paymentStatus);
           return true;
        } else {
         $this->getLogger(__METHOD__)->error('nis', $paymentStatus);

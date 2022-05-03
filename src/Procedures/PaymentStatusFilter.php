@@ -16,6 +16,7 @@
 namespace Novalnet\Procedures;
 
 use Plenty\Modules\EventProcedures\Events\EventProceduresTriggered;
+use Plenty\Modules\EventProcedures\Services\EventProceduresService;
 use Plenty\Modules\Order\Models\Order;
 use Plenty\Plugin\Log\Loggable;
 use Plenty\Modules\Payment\Contracts\PaymentRepositoryContract;

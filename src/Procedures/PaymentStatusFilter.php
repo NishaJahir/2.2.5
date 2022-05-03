@@ -57,6 +57,11 @@ class PaymentStatusFilter
    public function canceled(EventProceduresTriggered $eventTriggered) {
       return $this->getNovalnetOrderPaymentStatus($eventTriggered, 5);
    }
+ 
+   public function pending(EventProceduresTriggered $eventTriggered) {
+     $this->getLogger(__METHOD__)->error('pending', 'await');
+        return $this->getNovalnetOrderPaymentStatus($eventTriggered, 1);
+    }
   
    /**
      * Get the payment status based on the order Id

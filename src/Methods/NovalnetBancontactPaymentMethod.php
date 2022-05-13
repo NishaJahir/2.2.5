@@ -78,7 +78,7 @@ class NovalnetBancontactPaymentMethod extends PaymentMethodService
      */
     public function isActive():bool
     {
-       $this->getLogger(__METHOD__)->error('Bancontact', $this->configRepository->get('Novalnet.novalnet_bancontact_payment_active'));
+     
         
        if ($this->configRepository->get('Novalnet.novalnet_bancontact_payment_active') == 'true') {
         

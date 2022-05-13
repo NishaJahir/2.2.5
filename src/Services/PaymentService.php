@@ -446,6 +446,7 @@ class PaymentService
 
         if($this->isRedirectPayment($paymentKey, $doRedirect))
         {
+            $this->getLogger(__METHOD__)->error('encode', $paymentRequestData);
         $paymentRequestData['uniqid'] = $this->paymentHelper->getUniqueId();
         $this->encodePaymentData($paymentRequestData);
         $paymentRequestData['implementation'] = 'ENC';
@@ -584,7 +585,7 @@ class PaymentService
             // Encoding payment data
             $paymentRequestData[$key] = $this->paymentHelper->encodeData($paymentRequestData[$key], $paymentRequestData['uniqid']);
         }
-
+        $this->getLogger(__METHOD__)->error('encode12345', $paymentRequestData);
         // Generate hash value
         $paymentRequestData['hash'] = $this->paymentHelper->generateHash($paymentRequestData);
     }

@@ -78,7 +78,7 @@ class NovalnetPostfinanceEfinancePaymentMethod extends PaymentMethodService
      */
     public function isActive():bool
     {
-        $this->getLogger(__METHOD__)->error('efinance', $this->configRepository->get('Novalnet.novalnet_postfinance_efinance_payment_active'));
+       
        if ($this->configRepository->get('Novalnet.novalnet_postfinance_efinance_payment_active') == 'true') {
         
         $active_payment_allowed_country = true;

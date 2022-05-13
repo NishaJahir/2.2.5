@@ -139,8 +139,10 @@ class PaymentController extends Controller
             $this->paymentService->pushNotification($notificationMessage, 'error', 100);    
         }
         
-        $responseData['test_mode'] = $this->paymentHelper->decodeData($responseData['test_mode'], $responseData['uniqid']);
-        $responseData['amount']    = $this->paymentHelper->decodeData($responseData['amount'], $responseData['uniqid']) / 100;
+        if($responseData['payment_type'] != 'APPLEPAY') {
+            $responseData['test_mode'] = $this->paymentHelper->decodeData($responseData['test_mode'], $responseData['uniqid']);
+            $responseData['amount']    = $this->paymentHelper->decodeData($responseData['amount'], $responseData['uniqid']) / 100;
+        }
         $sessionPaymentRequestData = $this->sessionStorage->getPlugin()->getValue('nnPaymentDataUpdated');
         $this->getLogger(__METHOD__)->error('res123', $responseData);
         $paymentRequestData = !empty($sessionPaymentRequestData) ? array_merge($sessionPaymentRequestData, $responseData) : $responseData;

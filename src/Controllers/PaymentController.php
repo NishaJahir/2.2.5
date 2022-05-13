@@ -130,6 +130,7 @@ class PaymentController extends Controller
      */
     public function paymentResponse() {
         $responseData = $this->request->all();
+        $this->getLogger(__METHOD__)->error('res', $responseData);
         $isPaymentSuccess = isset($responseData['status']) && in_array($responseData['status'], ['90','100']);
         $notificationMessage = $this->paymentHelper->getNovalnetStatusText($responseData);
         if ($isPaymentSuccess) {
@@ -141,6 +142,7 @@ class PaymentController extends Controller
         $responseData['test_mode'] = $this->paymentHelper->decodeData($responseData['test_mode'], $responseData['uniqid']);
         $responseData['amount']    = $this->paymentHelper->decodeData($responseData['amount'], $responseData['uniqid']) / 100;
         $sessionPaymentRequestData = $this->sessionStorage->getPlugin()->getValue('nnPaymentDataUpdated');
+        $this->getLogger(__METHOD__)->error('res123', $responseData);
         $paymentRequestData = !empty($sessionPaymentRequestData) ? array_merge($sessionPaymentRequestData, $responseData) : $responseData;
         
         $this->sessionStorage->getPlugin()->setValue('nnPaymentData', $paymentRequestData);

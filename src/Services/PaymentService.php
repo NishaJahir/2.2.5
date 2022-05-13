@@ -197,12 +197,15 @@ class PaymentService
      */
     public function executePayment($requestData, $callbackfailure = false)
     {
+        $this->getLogger(__METHOD__)->error('data', $requestData);
         try {
             if(!$callbackfailure &&  in_array($requestData['status'], ['100', '90'])) {
                 if(in_array($requestData['tid_status'], ['75', '85', '86', '90', '91', '98', '99']) || in_array($requestData['payment_id'], ['27', '59', '73']) && $requestData['tid_status'] == '100') {
                     $requestData['paid_amount'] = 0;
+                     $this->getLogger(__METHOD__)->error('data if', $requestData['paid_amount']);
                 } else {
                     $requestData['paid_amount'] = ($requestData['tid_status'] == '100') ? $requestData['amount'] : '0';
+                     $this->getLogger(__METHOD__)->error('data else', $requestData['paid_amount']);
                 }
             } else {
                 $requestData['type'] = 'cancel';
